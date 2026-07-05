@@ -4,7 +4,7 @@ import { ApiResponse, asyncHandler } from "../../../core/index.js";
 import { cookieOptions } from "../../../config/index.js";
 
 const register = asyncHandler(async (req, res) => {
-  const { user, token } = await authService.register(req.body);
+  const { user, token } = await authService.register(req.validated.body);
 
   res.cookie("accessToken", token, cookieOptions);
 
@@ -14,7 +14,7 @@ const register = asyncHandler(async (req, res) => {
 });
 
 const login = asyncHandler(async (req, res) => {
-  const { user, token } = await authService.login(req.body);
+  const { user, token } = await authService.login(req.validated.body);
 
   res.cookie("accessToken", token, cookieOptions);
 

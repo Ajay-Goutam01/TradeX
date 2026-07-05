@@ -1,0 +1,1 @@
+export { default as yahooProvider } from "./yahoo.provider.js";

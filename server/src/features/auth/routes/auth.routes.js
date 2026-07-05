@@ -9,10 +9,7 @@ import {
 
 import validate from "../../../middlewares/validate.middleware.js";
 
-import {
-  registerSchema,
-  loginSchema,
-} from "../validations/auth.validation.js";
+import { registerSchema, loginSchema } from "../validations/auth.validation.js";
 
 import authMiddleware from "../../../middlewares/auth.middleware.js";
 
@@ -21,31 +18,15 @@ const router = Router();
 /**
  * Public Routes
  */
-router.post(
-  "/register",
-  validate(registerSchema),
-  register
-);
+router.post("/register", validate(registerSchema), register);
 
-router.post(
-  "/login",
-  validate(loginSchema),
-  login
-);
+router.post("/login", validate(loginSchema), login);
 
 /**
  * Protected Routes
  */
-router.post(
-  "/logout",
-  authMiddleware,
-  logout
-);
+router.post("/logout", authMiddleware, logout);
 
-router.get(
-  "/me",
-  authMiddleware,
-  getCurrentUser
-);
+router.get("/me", authMiddleware, getCurrentUser);
 
 export default router;
