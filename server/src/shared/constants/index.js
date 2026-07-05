@@ -1,0 +1,1 @@
+export { PASSWORD_REGEX } from "./regex.constants.js";
