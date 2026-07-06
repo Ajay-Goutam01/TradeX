@@ -1,4 +1,5 @@
 import marketService from "../services/market.service.js";
+import marketDashboardService from "../services/market.dashboard.service.js";
 
 import {
   ApiResponse,
@@ -64,6 +65,20 @@ const getIndices = asyncHandler(async(req,res)=>{
     )
   );
 })
+const getHome = asyncHandler(async (req, res) => {
+
+  const home =
+    await marketDashboardService.getHome();
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      "Market dashboard fetched successfully.",
+      home
+    )
+  );
+
+});
 
 
 
@@ -71,5 +86,6 @@ export {
   searchStocks,
   getQuote,
   getHistory,
-  getIndices
+  getIndices,
+  getHome
 };

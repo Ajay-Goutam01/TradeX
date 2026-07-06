@@ -1,0 +1,1 @@
+export { default as seedInstruments } from "./seeders/instrument.seeder.js";

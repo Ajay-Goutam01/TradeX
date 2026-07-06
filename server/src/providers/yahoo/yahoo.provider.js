@@ -1,8 +1,9 @@
 import YahooFinance from "yahoo-finance2";
 
 import { ApiError } from "../../core/index.js";
-
-const yahooFinance = new YahooFinance();
+const yahooFinance = new YahooFinance({
+  suppressNotices: ["yahooSurvey"],
+});
 
 class YahooProvider {
   async searchStocks(query) {
@@ -22,23 +23,12 @@ class YahooProvider {
   }
 
   async getQuotes(symbols) {
-    return await yahooFinance.quote(symbols);
+    return await Promise.all(symbols.map((symbol) => this.getQuote(symbol)));
   }
-async getHistory(symbol, options) {
-  return await yahooFinance.historical(symbol, options);
-}
-async getIndices() {
-  const symbols = [
-    "^NSEI",
-    "^NSEBANK",
-    "^BSESN",
-    "NIFTY_FIN_SERVICE.NS",
-  ];
 
-  return await Promise.all(
-    symbols.map((symbol) => this.getQuote(symbol))
-  );
-}
+  async getHistory(symbol, options) {
+    return await yahooFinance.historical(symbol, options);
+  }
 }
 
 const yahooProvider = new YahooProvider();

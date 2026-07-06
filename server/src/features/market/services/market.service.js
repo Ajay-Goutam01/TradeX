@@ -1,5 +1,6 @@
 import { yahooProvider } from "../../../providers/index.js";
 import { ApiError } from "../../../core/index.js";
+import { DASHBOARD_SYMBOLS } from "../../../shared/constants/market.constants.js";
 
 class MarketService {
   getPeriod(range) {
@@ -55,33 +56,19 @@ class MarketService {
   mapQuote(stock) {
     return {
       symbol: stock.symbol,
-
       name: stock.longName || stock.shortName,
-
       exchange: stock.fullExchangeName,
-
       currency: stock.currency,
-
       price: stock.regularMarketPrice,
-
       previousClose: stock.regularMarketPreviousClose,
-
       open: stock.regularMarketOpen,
-
       high: stock.regularMarketDayHigh,
-
       low: stock.regularMarketDayLow,
-
       volume: stock.regularMarketVolume,
-
       marketCap: stock.marketCap,
-
       change: stock.regularMarketChange,
-
       changePercent: stock.regularMarketChangePercent,
-
-      marketState: stock.marketState,
-
+      marketState: this.mapMarketStatus(stock.marketState),
       logo: stock.logoUrl || null,
     };
   }
@@ -111,56 +98,56 @@ class MarketService {
       volume: candle.volume,
     }));
   }
- mapIndices(indices) {
-  const result = {};
+  mapIndices(indices) {
+    const result = {};
 
-  indices.forEach((index) => {
-    const data = {
-      symbol: index.symbol,
-      name: index.shortName || index.longName,
-      price: index.regularMarketPrice,
-      change: index.regularMarketChange,
-      changePercent: index.regularMarketChangePercent,
-      marketState: this.getMarketStatus(index.marketState),
-    };
+    indices.forEach((index) => {
+      const data = {
+        symbol: index.symbol,
+        name: index.shortName || index.longName,
+        price: index.regularMarketPrice,
+        change: index.regularMarketChange,
+        changePercent: index.regularMarketChangePercent,
+        marketState: this.mapMarketStatus(index.marketState),
+      };
 
-    switch (index.symbol) {
-      case "^NSEI":
-        result.nifty50 = data;
-        break;
+      switch (index.symbol) {
+        case "^NSEI":
+          result.nifty50 = data;
+          break;
 
-      case "^NSEBANK":
-        result.bankNifty = data;
-        break;
+        case "^NSEBANK":
+          result.bankNifty = data;
+          break;
 
-      case "^BSESN":
-        result.sensex = data;
-        break;
+        case "^BSESN":
+          result.sensex = data;
+          break;
 
-      case "NIFTY_FIN_SERVICE.NS":
-        result.finnifty = data;
-        break;
-    }
-  });
+        case "NIFTY_FIN_SERVICE.NS":
+          result.finnifty = data;
+          break;
+      }
+    });
 
-  return result;
-}
-getMarketStatus(state) {
-  switch (state) {
-    case "REGULAR":
-      return "Open";
-
-    case "PRE":
-      return "Pre Market";
-
-    case "POST":
-    case "POSTPOST":
-      return "Closed";
-
-    default:
-      return "Unknown";
+    return result;
   }
-}
+  mapMarketStatus(state) {
+    switch (state) {
+      case "REGULAR":
+        return "Open";
+
+      case "PRE":
+        return "Pre Market";
+
+      case "POST":
+      case "POSTPOST":
+        return "Closed";
+
+      default:
+        return "Unknown";
+    }
+  }
   async searchStocks(query) {
     if (!query?.trim()) {
       throw new ApiError(400, "Search query is required.");
@@ -197,10 +184,21 @@ getMarketStatus(state) {
     };
   }
   async getIndices() {
-  const indices = await yahooProvider.getIndices();
+    const symbols = ["^NSEI", "^NSEBANK", "^BSESN", "NIFTY_FIN_SERVICE.NS"];
 
-  return this.mapIndices(indices);
-}
+    const indices = await yahooProvider.getQuotes(symbols);
+
+    return this.mapIndices(indices);
+  }
+  async getDashboardQuotes(symbols = DASHBOARD_SYMBOLS) {
+    try {
+      const quotes = await yahooProvider.getQuotes(symbols);
+
+      return quotes;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 const marketService = new MarketService();

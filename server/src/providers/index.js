@@ -1,1 +1,1 @@
-export * from "./yahoo/index.js";
+export { default as yahooProvider } from "./yahoo/yahoo.provider.js";
