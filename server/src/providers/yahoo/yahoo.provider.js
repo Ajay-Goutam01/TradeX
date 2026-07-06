@@ -24,6 +24,21 @@ class YahooProvider {
   async getQuotes(symbols) {
     return await yahooFinance.quote(symbols);
   }
+async getHistory(symbol, options) {
+  return await yahooFinance.historical(symbol, options);
+}
+async getIndices() {
+  const symbols = [
+    "^NSEI",
+    "^NSEBANK",
+    "^BSESN",
+    "NIFTY_FIN_SERVICE.NS",
+  ];
+
+  return await Promise.all(
+    symbols.map((symbol) => this.getQuote(symbol))
+  );
+}
 }
 
 const yahooProvider = new YahooProvider();

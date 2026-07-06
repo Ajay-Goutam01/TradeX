@@ -33,7 +33,43 @@ const getQuote = asyncHandler(async (req, res) => {
   );
 });
 
+const getHistory = asyncHandler(async (req, res) => {
+  const { symbol } = req.validated.params;
+
+  const { interval, range } = req.validated.query;
+
+  const history = await marketService.getHistory(
+    symbol,
+    interval,
+    range
+  );
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      "Historical data fetched successfully.",
+      history
+    )
+  );
+});
+
+const getIndices = asyncHandler(async(req,res)=>{
+  const indices = await marketService.getIndices();
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      "Indices fetched successfully.",
+      indices
+    )
+  );
+})
+
+
+
 export {
   searchStocks,
   getQuote,
+  getHistory,
+  getIndices
 };

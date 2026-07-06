@@ -39,4 +39,6 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "User fetched successfully.", user));
 });
 
+
+
 export { register, login, logout, getCurrentUser };
