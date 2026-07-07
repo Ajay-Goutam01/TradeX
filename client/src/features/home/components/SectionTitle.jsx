@@ -1,15 +1,11 @@
 function SectionTitle({ title, subtitle }) {
   return (
-    <div className="mb-8">
-      <h2 className="text-3xl font-bold text-slate-900">
-        {title}
-      </h2>
+    <div className="mb-10 text-center">
+      <h2 className="text-4xl font-bold text-slate-900">{title}</h2>
 
-      {subtitle && (
-        <p className="mt-2 text-slate-500">
-          {subtitle}
-        </p>
-      )}
+      <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-500">
+        {subtitle}
+      </p>
     </div>
   );
 }

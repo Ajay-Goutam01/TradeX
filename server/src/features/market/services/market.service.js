@@ -142,6 +142,7 @@ class MarketService {
 
       case "POST":
       case "POSTPOST":
+      case "CLOSED":
         return "Closed";
 
       default:
@@ -198,6 +199,9 @@ class MarketService {
     } catch (error) {
       throw error;
     }
+  }
+  async getLiveQuote(stock) {
+    return await this.getQuote(stock.yahooSymbol);
   }
 }
 

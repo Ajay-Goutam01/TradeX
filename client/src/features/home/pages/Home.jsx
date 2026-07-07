@@ -14,13 +14,13 @@ function Home() {
   }, []);
 
   return (
-    <div className="space-y-16 pb-16">
+    <>
       <Hero />
 
       <MarketOverview />
 
       <Features />
-    </div>
+    </>
   );
 }
 

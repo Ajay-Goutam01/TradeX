@@ -1,57 +1,63 @@
+import { Link } from "react-router-dom";
+import { ArrowRight, TrendingUp } from "lucide-react";
+
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
-
-      <div className="mx-auto max-w-7xl px-6 py-24">
-
-        <div className="max-w-3xl">
-
-          <span className="rounded-full bg-blue-100 px-4 py-2 text-sm font-medium text-blue-700">
-
-            Real Time Indian Market
-
-          </span>
-
-          <h1 className="mt-8 text-6xl font-extrabold leading-tight text-slate-900">
-
-            Trade Without
-
-            <span className="text-blue-600">
-
-              {" "}Risk
-
-            </span>
-
-          </h1>
-
-          <p className="mt-6 text-xl leading-9 text-slate-600">
-
-            India's Modern Paper Trading Platform with
-            real-time market data, portfolio tracking
-            and professional analytics.
-
-          </p>
-
-          <div className="mt-10 flex gap-5">
-
-            <button className="rounded-xl bg-blue-600 px-8 py-4 text-white font-semibold shadow-lg hover:scale-105 transition">
-
-              Start Paper Trading
-
-            </button>
-
-            <button className="rounded-xl border border-slate-300 bg-white px-8 py-4 font-semibold hover:bg-slate-100 transition">
-
-              Explore Markets
-
-            </button>
-
-          </div>
-
+    <section className="bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950">
+      <div className="mx-auto flex min-h-[85vh] max-w-7xl flex-col items-center justify-center px-6 text-center">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-5 py-2 text-sm text-blue-300">
+          <TrendingUp size={16} />
+          TradeX
         </div>
 
-      </div>
+        <h1 className="max-w-5xl text-5xl font-extrabold leading-tight text-white md:text-7xl">
+          Learn Trading
+          <span className="block text-blue-400">Without Losing Money</span>
+        </h1>
 
+        <p className="mt-8 max-w-3xl text-lg leading-8 text-slate-300">
+          TradeX is a paper trading platform inspired by Dhan and Zerodha,
+          allowing users to practice stock trading using live market data, build
+          portfolios, and improve trading skills without financial risk.
+        </p>
+
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-5">
+          <Link
+            to="/register"
+            className="flex items-center gap-2 rounded-2xl bg-blue-600 px-8 py-4 text-lg font-semibold text-white transition hover:bg-blue-700"
+          >
+            Get Started
+            <ArrowRight size={20} />
+          </Link>
+
+          <Link
+            to="/login"
+            className="rounded-2xl border border-slate-600 px-8 py-4 text-lg font-semibold text-white transition hover:bg-white hover:text-slate-900"
+          >
+            Login
+          </Link>
+        </div>
+
+        <div className="mt-24 grid w-full gap-6 md:grid-cols-3">
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
+            <h2 className="text-4xl font-bold text-white">Live</h2>
+
+            <p className="mt-2 text-slate-400">Market Data</p>
+          </div>
+
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
+            <h2 className="text-4xl font-bold text-white">₹10L</h2>
+
+            <p className="mt-2 text-slate-400">Virtual Capital</p>
+          </div>
+
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-8">
+            <h2 className="text-4xl font-bold text-white">100%</h2>
+
+            <p className="mt-2 text-slate-400">Risk Free</p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

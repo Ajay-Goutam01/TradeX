@@ -1,4 +1,5 @@
 import authService from "../services/auth.service.js";
+import walletService from "../../wallet/services/wallet.service.js";
 
 import { ApiResponse, asyncHandler } from "../../../core/index.js";
 import { cookieOptions } from "../../../config/index.js";

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,26 +8,42 @@ import SearchDropDown from "../../features/market/components/SearchDropDown";
 function SearchBar() {
   const navigate = useNavigate();
 
+  const searchRef = useRef(null);
+
   const { searchStocks, searchResults, searching } = useMarket();
 
   const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    const timer = setTimeout(() => {
       searchStocks(query);
     }, 300);
 
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(timer);
   }, [query]);
+
+  useEffect(() => {
+    function handleOutside(e) {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleOutside);
+
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, []);
 
   const handleSelect = (stock) => {
     setQuery("");
+    setOpen(false);
 
     navigate(`/dashboard/market/${stock.symbol}`);
   };
 
   return (
-    <div className="relative hidden w-full max-w-lg lg:block">
+    <div ref={searchRef} className="relative hidden w-full max-w-lg lg:block">
       <Search
         size={18}
         className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
@@ -35,16 +51,22 @@ function SearchBar() {
 
       <input
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search Stocks..."
+        onFocus={() => setOpen(true)}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setOpen(true);
+        }}
+        placeholder="Search stocks..."
         className="w-full rounded-2xl border border-slate-200 bg-slate-100 py-3 pl-12 pr-4 outline-none transition focus:border-blue-600 focus:bg-white"
       />
 
-      <SearchDropDown
-        loading={searching}
-        results={searchResults}
-        onSelect={handleSelect}
-      />
+      {open && (
+        <SearchDropDown
+          loading={searching}
+          results={searchResults}
+          onSelect={handleSelect}
+        />
+      )}
     </div>
   );
 }

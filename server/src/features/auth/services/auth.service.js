@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { env } from "../../../config/index.js";
 import { ApiError } from "../../../core/index.js";
 import { User } from "../../../models/index.js";
-
+import walletService from "../../wallet/services/wallet.service.js";
 
 class AuthService {
   /**
@@ -29,15 +29,16 @@ class AuthService {
       password: hashedPassword,
     });
 
-    // Fetch user again (password excluded because of select: false)
-    const user = await User.findById(createdUser._id);
+    await walletService.createWallet(createdUser._id);
+
+    const user = await User.findById(createdUser._id).select("-password");
 
     if (!user) {
       throw new ApiError(500, "Failed to create user.");
     }
 
-    // Generate JWT
     const token = user.generateAccessToken();
+
     return {
       user,
       token,
@@ -58,7 +59,7 @@ class AuthService {
     }
 
     // Compare password
-   const isPasswordMatched = await user.isPasswordCorrect(password);
+    const isPasswordMatched = await user.isPasswordCorrect(password);
 
     if (!isPasswordMatched) {
       throw new ApiError(401, "Invalid email or password.");
@@ -72,7 +73,7 @@ class AuthService {
     const loggedInUser = await User.findById(user._id);
 
     // Generate JWT
-   const token = user.generateAccessToken();
+    const token = user.generateAccessToken();
 
     return {
       user: loggedInUser,

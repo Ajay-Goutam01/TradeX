@@ -27,7 +27,27 @@ class YahooProvider {
   }
 
   async getHistory(symbol, options) {
-    return await yahooFinance.historical(symbol, options);
+    const response = await yahooFinance.chart(symbol, {
+      period1: options.period1,
+      period2: options.period2,
+      interval: options.interval,
+    });
+
+    const quotes = response.quotes || [];
+
+    return quotes
+      .filter(
+        (q) =>
+          q.open != null && q.high != null && q.low != null && q.close != null,
+      )
+      .map((q) => ({
+        date: q.date,
+        open: q.open,
+        high: q.high,
+        low: q.low,
+        close: q.close,
+        volume: q.volume ?? 0,
+      }));
   }
 }
 

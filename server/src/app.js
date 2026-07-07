@@ -63,7 +63,7 @@ app.use(limiterMiddleware);
 /**
  * API Routes
  */
-app.use("/api/v1", routes);
+app.use("/api", routes);
 
 /**
  * 404 Handler

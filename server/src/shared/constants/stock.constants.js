@@ -1,0 +1,28 @@
+export const EXCHANGES = {
+  NSE: "NSE",
+  BSE: "BSE",
+};
+
+export const INSTRUMENT_TYPES = {
+  EQUITY: "EQUITY",
+  ETF: "ETF",
+  INDEX: "INDEX",
+  MUTUAL_FUND: "MUTUAL_FUND",
+  FUTURE: "FUTURE",
+  OPTION: "OPTION",
+};
+
+export const MARKET_CAP_CATEGORIES = {
+  LARGE_CAP: "LARGE_CAP",
+  MID_CAP: "MID_CAP",
+  SMALL_CAP: "SMALL_CAP",
+  MICRO_CAP: "MICRO_CAP",
+  UNKNOWN: "UNKNOWN",
+};
+
+export const STOCK_SYNC = {
+  BATCH_SIZE: 1000,
+  SEARCH_LIMIT: 20,
+  DEFAULT_PAGE: 1,
+  DEFAULT_LIMIT: 25,
+};

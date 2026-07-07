@@ -41,6 +41,7 @@ const useMarket = () => {
     dispatch(setSearchQuery(query));
 
     if (!query.trim()) {
+      dispatch(setSearching(false));
       dispatch(setSearchResults([]));
       return;
     }
