@@ -1,66 +1,110 @@
-# 📈 TradeX - Stock Trading Platform
+# 📈 TradeX - Full Stack Stock Trading Platform
 
-TradeX is a full-stack MERN-based stock trading platform inspired by modern trading applications like Dhan and Zerodha. The project is focused on building a scalable, production-ready architecture while showcasing real-world trading workflows, market data integration, and modern full-stack development.
-
-> 🚧 This project is currently under active development.
+TradeX is a full-stack MERN-based stock trading platform inspired by modern trading applications like Dhan, Groww, and Zerodha. The project focuses on scalable architecture, real-time market data, paper trading, portfolio management, and production-ready backend development.
 
 ---
 
-## 🚀 Current Features
+## 🚀 Current Progress
 
-### ✅ Backend
+### ✅ Completed
+
+### Authentication
 
 - JWT Authentication
 - Secure HTTP-only Cookie Authentication
 - User Registration & Login
-- Logout & Current User API
+- Logout
+- Get Current User
+- Password Hashing (bcrypt)
 - Protected Routes
-- Zod Request Validation
-- MongoDB Atlas Integration
+- Role-Based Authorization
+
+### Market
+
+- Live Market Dashboard
+- NIFTY 50
+- SENSEX
+- BANK NIFTY
+- FINNIFTY
+- Top Gainers
+- Top Losers
+- Most Active Stocks
+- Live Stock Search
+- Live Stock Quotes
+- Historical Market Data (Chart API)
+
+### Trading Engine
+
+- Paper Trading Wallet
+- Holdings Management
+- Portfolio Calculation
+- Buy Orders
+- Sell Orders
+- Transaction History
+
+### Backend
+
 - Feature-Based Architecture
+- REST APIs
+- MongoDB Atlas
+- Mongoose ODM
 - Global Error Handling
+- Zod Validation
+- Async Error Handler
+- Cookie Authentication
 - Rate Limiting
 - Health Check API
-- Yahoo Finance Market Data Integration
-- Market Dashboard API
-- Stock Search API
-- Stock Quote API
-- Historical Data API
-- Market Indices API
 
 ---
 
-### ✅ Frontend
+## 🚧 Currently In Development
 
-- React + Vite
-- Tailwind CSS v4
-- Redux Toolkit State Management
-- Axios API Integration
-- Authentication Flow
-- Protected & Public Routing
-- Responsive Dashboard Layout
-- Market Dashboard
-- Market Overview
-- Stock Search
-- Stock Details Page
-- Live Market Integration
-- Modern Navbar & Sidebar
-
----
-
-## 🚧 Upcoming Features
-
-- Paper Trading Engine
-- Portfolio Management
-- Orders & Holdings
 - Watchlist
-- TradingView Charts
-- IPO Module
-- Option Chain
-- Market News
-- Real-Time Price Updates (WebSocket)
-- Technical Indicators
+- Complete Portfolio APIs
+- Order History
+- Stock Master Database (NSE + BSE)
 - Admin Dashboard
+- Redis Caching
+- WebSocket Live Price Updates
+
+---
+
+## 📅 Upcoming Features
+
+### Market
+
+- Real-Time Price Streaming
+- TradingView Charts
+- Technical Indicators
+- Heat Map
+- Sector Performance
+- Market Breadth
+
+### Trading
+
+- Intraday Trading
+- CNC Orders
+- Limit Orders
+- Stop Loss
+- GTT Orders
+- Order Book
+
+### Investment
+
+- IPO Module
+- Mutual Funds
+- ETFs
+- Futures & Options
+- Option Chain
+- Greeks
+
+### User
+
+- Profile Management
+- Notifications
+- KYC Module
+- Funds Management
+- Watchlists
 
 ---
 
@@ -70,18 +114,16 @@ TradeX is a full-stack MERN-based stock trading platform inspired by modern trad
 
 - React.js
 - Vite
-- Tailwind CSS v4
+- Tailwind CSS
 - Redux Toolkit
-- React Router DOM
+- React Router
 - Axios
-- React Hook Form
-- React Hot Toast
 
 ### Backend
 
 - Node.js
 - Express.js
-- MongoDB
+- MongoDB Atlas
 - Mongoose
 - JWT
 - Zod
@@ -94,43 +136,90 @@ TradeX is a full-stack MERN-based stock trading platform inspired by modern trad
 ## 📂 Project Structure
 
 ```text
-TradeX
-│
-├── client
-│
-└── server
+TradeX/
+
+client/
+
+server/
+
+src/
+
+features/
+
+models/
+
+middlewares/
+
+providers/
+
+routes/
+
+services/
+
+utils/
 ```
+
+---
+
+## 📊 APIs Completed
+
+- Authentication APIs
+- Market APIs
+- Wallet APIs
+- Orders APIs
+- Holdings APIs
+- Portfolio APIs
+- Transactions APIs
+- Watchlist APIs
+- Health Check APIs
+
+**Current Backend APIs:** **23+**
 
 ---
 
 ## 🎯 Project Goal
 
-Build a production-ready stock trading platform that demonstrates:
-
-- Scalable MERN Architecture
-- Authentication & Authorization
-- Market Data Integration
-- Paper Trading Simulation
-- Portfolio & Order Management
-- Responsive UI
-- Production-Level Code Structure
+Build a production-ready stock trading platform capable of handling real-time market data, portfolio management, paper trading, live charts, option chain analysis, and scalable backend architecture while demonstrating advanced full-stack engineering skills.
 
 ---
 
-## 📌 Project Status
+## 📌 Development Status
 
-| Module         | Status         |
-| -------------- | -------------- |
-| Authentication | ✅ Completed   |
-| Market APIs    | ✅ Completed   |
-| Frontend Auth  | ✅ Completed   |
-| Dashboard      | 🚧 In Progress |
-| Market Module  | 🚧 In Progress |
-| Paper Trading  | ⏳ Planned     |
-| Portfolio      | ⏳ Planned     |
-| Orders         | ⏳ Planned     |
-| Watchlist      | ⏳ Planned     |
+```text
+Backend Progress
+
+██████████████████░░░░░░░░
+
+≈ 85%
+
+Frontend Progress
+
+██████░░░░░░░░░░░░░░░░░░░░
+
+≈ 25%
+```
 
 ---
 
-⭐ This project is actively being developed, and new features are added regularly.
+## ⭐ Future Roadmap
+
+- Complete Backend APIs
+- Redis Integration
+- WebSocket Live Prices
+- TradingView Integration
+- Option Chain
+- IPO Module
+- Futures & Options
+- Deployment
+- CI/CD Pipeline
+- Docker Support
+
+---
+
+## 👨‍💻 Author
+
+**Ajay Goutam**
+
+Computer Science Engineering Student
+
+Building a production-grade stock trading platform using the MERN Stack.
