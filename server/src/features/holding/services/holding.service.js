@@ -71,10 +71,14 @@ class HoldingService {
 
     const averageCost = holding.averagePrice;
 
+    const costOfSoldShares = averageCost * quantity;
+
     holding.quantity -= quantity;
 
-    holding.investedAmount -= averageCost * quantity;
-    const costOfSoldShares = averageCost * quantity;
+    holding.investedAmount = Math.max(
+      0,
+      holding.investedAmount - costOfSoldShares,
+    );
     if (holding.quantity > 0) {
       holding.averagePrice = holding.investedAmount / holding.quantity;
     }
@@ -89,27 +93,35 @@ class HoldingService {
         },
       );
 
-      return null;
+      return {
+        holding: null,
+        averageCost,
+        costOfSoldShares,
+      };
     }
 
     await holding.save({
       session,
     });
 
-    return holding,
-    averageCost,
-      costOfSoldShares
-
+    return {
+      holding,
+      averageCost,
+      costOfSoldShares,
+    };
   }
 
-  async getHoldings(userId) {
-    return await Holding.find({
-      user: userId,
-      isActive: true,
-    }).populate("stock", "symbol companyName exchange");
-  }
+async getHoldings(userId) {
+  return await Holding.find({
+    user: userId,
+  })
+    .populate(
+      "stock",
+      "symbol yahooSymbol companyName exchange"
+    )
+    .lean();
 }
-
+}
 const holdingService = new HoldingService();
 
 export default holdingService;

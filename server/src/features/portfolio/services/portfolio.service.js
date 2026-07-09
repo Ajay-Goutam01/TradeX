@@ -8,74 +8,74 @@ class PortfolioService {
 
     const holdings = await holdingService.getHoldings(userId);
 
-    let invested = 0;
-
+    let investedAmount = 0;
     let currentValue = 0;
-
     let totalProfit = 0;
 
-    const holdingData = [];
-    for (const holding of holdings) {
-      const quote = await marketService.getLiveQuote(holding.stock);
+    const holdingData = await Promise.all(
+      holdings.map(async (holding) => {
+        const quote = await marketService.getLiveQuote(holding.stock);
 
-      const currentPrice = quote.price;
+        const currentPrice = quote.price ?? 0;
 
-      const investedAmount = holding.investedAmount;
+        const invested = holding.investedAmount;
 
-      const currentHoldingValue = currentPrice * holding.quantity;
+        const holdingValue = currentPrice * holding.quantity;
 
-      const profit = currentHoldingValue - investedAmount;
+        const profit = holdingValue - invested;
 
-      const returnPercent =
-        investedAmount === 0 ? 0 : (profit / investedAmount) * 100;
-      invested += investedAmount;
+        const returnPercent = invested === 0 ? 0 : (profit / invested) * 100;
 
-      currentValue += currentHoldingValue;
+        investedAmount += invested;
+        currentValue += holdingValue;
+        totalProfit += profit;
 
-      totalProfit += profit;
-      holdingData.push({
-        stock: holding.stock,
+        return {
+          stock: holding.stock,
 
-        quantity: holding.quantity,
+          quantity: holding.quantity,
 
-        averagePrice: holding.averagePrice,
+          averagePrice: holding.averagePrice,
 
-        investedAmount,
+          investedAmount: invested,
 
-        currentPrice,
+          currentPrice,
 
-        currentValue: currentHoldingValue,
+          currentValue: holdingValue,
 
-        profit,
+          profit,
 
-        returnPercent,
-      });
-    }
+          returnPercent,
+        };
+      }),
+    );
+
     return {
       wallet: {
         availableBalance: wallet.availableBalance,
         blockedBalance: wallet.blockedBalance,
       },
 
-      investedAmount: invested,
+      investedAmount,
 
       currentValue,
 
-      totalPortfolioValue: currentValue + wallet.availableBalance,
-
       availableCash: wallet.availableBalance,
+
+      totalPortfolioValue: wallet.availableBalance + currentValue,
 
       totalProfit,
 
-      totalReturn: invested === 0 ? 0 : (totalProfit / invested) * 100,
+      totalReturn:
+        investedAmount === 0 ? 0 : (totalProfit / investedAmount) * 100,
 
       dayProfit: 0,
 
       dayReturn: 0,
 
-      totalHoldings: holdings.length,
+      totalHoldings: holdingData.length,
 
-      holdings: holdingsData,
+      holdings: holdingData,
     };
   }
 }

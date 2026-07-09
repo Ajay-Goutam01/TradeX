@@ -25,6 +25,10 @@ class OrderService {
 
       const marketPrice = quote.price;
 
+      if (!marketPrice || marketPrice <= 0) {
+        throw new ApiError(400, "Unable to fetch live market price.");
+      }
+
       //   let executionPrice = marketPrice;
 
       //   if (orderType === "LIMIT") {
@@ -93,7 +97,10 @@ class OrderService {
 
       await session.commitTransaction();
 
-      return order;
+      return await Order.findById(order._id).populate(
+        "stock",
+        "symbol companyName exchange",
+      );
     } catch (error) {
       await session.abortTransaction();
 
@@ -118,17 +125,21 @@ class OrderService {
         session,
       );
 
-      if (!holding) {
+      if (!currentHolding) {
         throw new ApiError(400, "Holding not found.");
       }
 
-      if (holding.quantity < quantity) {
+      if (currentHolding.quantity < quantity) {
         throw new ApiError(400, "Insufficient quantity.");
       }
 
       const quote = await marketService.getLiveQuote(stock);
 
       const executionPrice = quote.price;
+
+      if (quantity <= 0) {
+        throw new ApiError(400, "Quantity must be greater than zero.");
+      }
 
       const totalAmount = executionPrice * quantity;
       const [order] = await Order.create(

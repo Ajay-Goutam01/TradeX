@@ -9,6 +9,7 @@ import orderRoutes from "../features/order/index.js";
 import portfolioRoutes from "../features/portfolio/index.js";
 import holdingRoutes from "../features/holding/routes/holding.routes.js";
 import watchlistRoutes from "../features/watchlist/routes/watchlist.route.js";
+import transactionRoutes from "../features/transaction/routes/transaction.route.js"
 
 const router = Router();
 
@@ -18,11 +19,12 @@ router.use("/auth", authRoutes);
 
 router.use("/market", marketRoutes);
 
-router.use("/stock", stockRoutes);
+router.use("/stocks", stockRoutes);
 router.use("/wallet", walletRoutes);
 router.use("/orders", orderRoutes);
 router.use("/portfolio", portfolioRoutes);
 router.use("/holdings", holdingRoutes);
 router.use("/watchlist", watchlistRoutes);
+router.use("/transactions", transactionRoutes);
 
 export default router;

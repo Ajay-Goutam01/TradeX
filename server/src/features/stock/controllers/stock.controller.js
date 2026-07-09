@@ -1,14 +1,19 @@
-import {asyncHandler} from "../../../core/index.js";
-import { ApiResponse } from "../../../core/index.js";
-
+import { asyncHandler, ApiResponse, ApiError } from "../../../core/index.js";
 import stockService from "../services/stock.service.js";
 
 export const getStocks = asyncHandler(async (req, res) => {
-  const { page, limit, exchange, sector, industry, instrumentType } = req.query;
+  const {
+    page = 1,
+    limit = 25,
+    exchange,
+    sector,
+    industry,
+    instrumentType,
+  } = req.query;
 
   const result = await stockService.getStocks({
-    page: Number(page) || 1,
-    limit: Number(limit) || 25,
+    page: Number(page),
+    limit: Number(limit),
     exchange,
     sector,
     industry,
@@ -23,11 +28,15 @@ export const getStocks = asyncHandler(async (req, res) => {
 export const searchStocks = asyncHandler(async (req, res) => {
   const { q } = req.query;
 
-  const stocks = await stockService.searchStocks(q);
+  if (!q?.trim()) {
+    throw new ApiError(400, "Search query is required.");
+  }
+
+  const stocks = await stockService.searchStocks(q.trim());
 
   return res
     .status(200)
-    .json(new ApiResponse(200, "Stocks fetched successfully.", stocks));
+    .json(new ApiResponse(200, "Search completed successfully.", stocks));
 });
 
 export const getStockBySymbol = asyncHandler(async (req, res) => {
@@ -54,4 +63,12 @@ export const getStocksByIndustry = asyncHandler(async (req, res) => {
     .json(
       new ApiResponse(200, "Industry stocks fetched successfully.", stocks),
     );
+});
+
+export const getStockById = asyncHandler(async (req, res) => {
+  const stock = await stockService.getStockById(req.params.id);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Stock fetched successfully.", stock));
 });

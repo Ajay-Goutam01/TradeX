@@ -12,6 +12,7 @@ class StockService {
     const operations = stocks.map((stock) => ({
       updateOne: {
         filter: {
+          exchange: stock.exchange,
           symbol: stock.symbol,
         },
         update: {
@@ -24,14 +25,26 @@ class StockService {
       },
     }));
 
-    return await Stock.bulkWrite(operations);
+    return await Stock.bulkWrite(operations, {
+      ordered: false,
+    });
+  }
+
+  async getStockById(stockId) {
+    const stock = await Stock.findById(stockId).lean();
+
+    if (!stock) {
+      throw new ApiError(404, "Stock not found.");
+    }
+
+    return stock;
   }
 
   async getStockBySymbol(symbol) {
     const stock = await Stock.findOne({
       symbol: symbol.toUpperCase(),
       isActive: true,
-    });
+    }).lean();
 
     if (!stock) {
       throw new ApiError(404, "Stock not found.");
@@ -43,7 +56,6 @@ class StockService {
   async searchStocks(query) {
     return await Stock.find({
       isActive: true,
-
       $or: [
         {
           symbol: {
@@ -51,17 +63,31 @@ class StockService {
             $options: "i",
           },
         },
-
         {
           companyName: {
             $regex: query,
             $options: "i",
           },
         },
+        {
+          displayName: {
+            $regex: query,
+            $options: "i",
+          },
+        },
+        {
+          searchKeywords: {
+            $regex: query,
+            $options: "i",
+          },
+        },
       ],
     })
+      .select(
+        "symbol tradingSymbol companyName displayName exchange instrumentType sector industry yahooSymbol logo",
+      )
       .limit(20)
-      .select("symbol companyName exchange instrumentType sector");
+      .lean();
   }
 
   async getStocks({
@@ -76,28 +102,19 @@ class StockService {
       isActive: true,
     };
 
-    if (exchange) {
-      filter.exchange = exchange;
-    }
-
-    if (sector) {
-      filter.sector = sector;
-    }
-
-    if (industry) {
-      filter.industry = industry;
-    }
-
-    if (instrumentType) {
-      filter.instrumentType = instrumentType;
-    }
+    if (exchange) filter.exchange = exchange;
+    if (sector) filter.sector = sector;
+    if (industry) filter.industry = industry;
+    if (instrumentType) filter.instrumentType = instrumentType;
 
     const skip = (page - 1) * limit;
 
     const [stocks, total] = await Promise.all([
-      Stock.find(filter).skip(skip).limit(limit).sort({
-        companyName: 1,
-      }),
+      Stock.find(filter)
+        .sort({ companyName: 1 })
+        .skip(skip)
+        .limit(limit)
+        .lean(),
 
       Stock.countDocuments(filter),
     ]);
@@ -117,20 +134,32 @@ class StockService {
     return await Stock.find({
       sector,
       isActive: true,
-    });
+    }).lean();
   }
 
   async getStocksByIndustry(industry) {
     return await Stock.find({
       industry,
       isActive: true,
-    });
+    }).lean();
+  }
+
+  async updateStock(symbol, payload) {
+    return await Stock.findOneAndUpdate(
+      {
+        symbol: symbol.toUpperCase(),
+      },
+      payload,
+      {
+        new: true,
+      },
+    );
   }
 
   async deactivateStock(symbol) {
     return await Stock.findOneAndUpdate(
       {
-        symbol,
+        symbol: symbol.toUpperCase(),
       },
       {
         isActive: false,
@@ -140,29 +169,6 @@ class StockService {
       },
     );
   }
-
-  async updateStock(symbol, payload) {
-    return await Stock.findOneAndUpdate(
-      {
-        symbol,
-      },
-      payload,
-      {
-        new: true,
-      },
-    );
-  }
-  async getStockById(stockId) {
-    const stock = await Stock.findById(stockId);
-
-    if (!stock) {
-      throw new ApiError(404, "Stock not found.");
-    }
-
-    return stock;
-  }
 }
 
-const stockService = new StockService();
-
-export default stockService;
+export default new StockService();
