@@ -1,225 +1,242 @@
-# 📈 TradeX - Full Stack Stock Trading Platform
+# 📈 Stock Trading Platform
 
-TradeX is a full-stack MERN-based stock trading platform inspired by modern trading applications like Dhan, Groww, and Zerodha. The project focuses on scalable architecture, real-time market data, paper trading, portfolio management, and production-ready backend development.
+A full-stack MERN based **Virtual Stock Trading Platform** inspired by Dhan, Zerodha, and Groww.
+
+This project allows users to practice stock trading using virtual money while providing real-time market data, portfolio management, and trading analytics.
+
+> 🚧 Currently under active development.
 
 ---
 
-## 🚀 Current Progress
+# ✨ Features
 
-### ✅ Completed
+## Authentication
 
-### Authentication
-
+- User Registration
+- Login / Logout
 - JWT Authentication
-- Secure HTTP-only Cookie Authentication
-- User Registration & Login
-- Logout
-- Get Current User
-- Password Hashing (bcrypt)
-- Protected Routes
-- Role-Based Authorization
+- Protected APIs
 
-### Market
+---
 
-- Live Market Dashboard
-- NIFTY 50
-- SENSEX
-- BANK NIFTY
-- FINNIFTY
-- Top Gainers
-- Top Losers
-- Most Active Stocks
-- Live Stock Search
-- Live Stock Quotes
-- Historical Market Data (Chart API)
+## Stock Market
 
-### Trading Engine
+- Search Stocks
+- Stock Master Database (NSE)
+- Live Market Quotes
+- Historical Price Data
+- Market Dashboard
 
-- Paper Trading Wallet
-- Holdings Management
-- Portfolio Calculation
-- Buy Orders
-- Sell Orders
+---
+
+## Paper Trading
+
+- Virtual Wallet
+- Buy Stocks
+- Sell Stocks
+- Order History
 - Transaction History
 
-### Backend
+---
 
-- Feature-Based Architecture
-- REST APIs
-- MongoDB Atlas
-- Mongoose ODM
-- Global Error Handling
-- Zod Validation
-- Async Error Handler
-- Cookie Authentication
-- Rate Limiting
-- Health Check API
+## Portfolio
+
+- Holdings
+- Portfolio Value
+- Current Value
+- Invested Amount
+- Profit & Loss
+- Returns %
 
 ---
 
-## 🚧 Currently In Development
+## Watchlist
 
-- Watchlist
-- Complete Portfolio APIs
-- Order History
-- Stock Master Database (NSE + BSE)
-- Admin Dashboard
-- Redis Caching
-- WebSocket Live Price Updates
+- Add Stocks
+- Remove Stocks
+- View Watchlist
 
 ---
 
-## 📅 Upcoming Features
+# 🛠 Tech Stack
 
-### Market
-
-- Real-Time Price Streaming
-- TradingView Charts
-- Technical Indicators
-- Heat Map
-- Sector Performance
-- Market Breadth
-
-### Trading
-
-- Intraday Trading
-- CNC Orders
-- Limit Orders
-- Stop Loss
-- GTT Orders
-- Order Book
-
-### Investment
-
-- IPO Module
-- Mutual Funds
-- ETFs
-- Futures & Options
-- Option Chain
-- Greeks
-
-### User
-
-- Profile Management
-- Notifications
-- KYC Module
-- Funds Management
-- Watchlists
-
----
-
-## 🛠 Tech Stack
-
-### Frontend
-
-- React.js
-- Vite
-- Tailwind CSS
-- Redux Toolkit
-- React Router
-- Axios
-
-### Backend
+## Backend
 
 - Node.js
 - Express.js
-- MongoDB Atlas
+- MongoDB
 - Mongoose
-- JWT
-- Zod
-- bcryptjs
-- Cookie Parser
+- JWT Authentication
+- Zod Validation
 - Yahoo Finance API
+
+## Frontend (Upcoming)
+
+- React
+- Tailwind CSS
+- Redux Toolkit
+- React Query
+- TradingView Charts
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
-```text
-TradeX/
-
-client/
-
+```
 server/
-
-src/
-
-features/
-
-models/
-
-middlewares/
-
-providers/
-
-routes/
-
-services/
-
-utils/
+│
+├── src/
+│   ├── features/
+│   ├── models/
+│   ├── providers/
+│   ├── routes/
+│   ├── middlewares/
+│   ├── config/
+│   └── core/
+│
+├── seed/
+│   └── stocks/
+│
+└── server.js
 ```
 
 ---
 
-## 📊 APIs Completed
+# 📌 Modules Completed
 
-- Authentication APIs
-- Market APIs
-- Wallet APIs
-- Orders APIs
-- Holdings APIs
-- Portfolio APIs
-- Transactions APIs
-- Watchlist APIs
-- Health Check APIs
-
-**Current Backend APIs:** **23+**
+- Authentication
+- Wallet
+- Orders
+- Holdings
+- Portfolio
+- Watchlist
+- Stocks
+- Market
+- Transactions
 
 ---
 
-## 🎯 Project Goal
+# 🚀 Upcoming Features
 
-Build a production-ready stock trading platform capable of handling real-time market data, portfolio management, paper trading, live charts, option chain analysis, and scalable backend architecture while demonstrating advanced full-stack engineering skills.
+- TradingView Charts
+- Technical Indicators
+- IPO Module
+- Option Chain
+- Futures & Options
+- Commodity Trading
+- Market News
+- Stock Screener
+- AI Trading Assistant
+- Strategy Builder
+- Real-time WebSocket Updates
 
 ---
 
-## 📌 Development Status
+# 📷 Screenshots
 
-```text
+Coming Soon...
+
+---
+
+# ⚙ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/your-username/StockTrading.git
+```
+
+Install dependencies
+
+```bash
+cd server
+npm install
+```
+
+Create environment file
+
+```env
+PORT=
+
+MONGODB_URI=
+
+JWT_SECRET=
+
+YAHOO_API_KEY=
+```
+
+Run Development Server
+
+```bash
+npm run dev
+```
+
+Seed Stocks
+
+```bash
+npm run seed:stocks
+```
+
+---
+
+# 📊 Current Progress
+
+| Module         | Status |
+| -------------- | ------ |
+| Authentication | ✅     |
+| Stocks         | ✅     |
+| Market         | ✅     |
+| Wallet         | ✅     |
+| Orders         | ✅     |
+| Holdings       | ✅     |
+| Portfolio      | ✅     |
+| Watchlist      | ✅     |
+| Transactions   | ✅     |
+
 Backend Progress
 
-██████████████████░░░░░░░░
-
-≈ 85%
+```text
+█████████████████████░░░ 95%
+```
 
 Frontend Progress
 
-██████░░░░░░░░░░░░░░░░░░░░
+```text
+░░░░░░░░░░░░░░░░░░░░░░░ 0%
+```
 
-≈ 25%
+Overall Project
+
+```text
+████████████████░░░░░░░ 70%
 ```
 
 ---
 
-## ⭐ Future Roadmap
+# 🎯 Goal
 
-- Complete Backend APIs
-- Redis Integration
-- WebSocket Live Prices
-- TradingView Integration
-- Option Chain
-- IPO Module
-- Futures & Options
-- Deployment
-- CI/CD Pipeline
-- Docker Support
+Build a production-ready virtual stock trading platform where users can
+
+- Learn Trading
+- Practice with Virtual Money
+- Analyze Charts
+- Track Portfolio
+- Create Trading Strategies
+
+without risking real capital.
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Ajay Goutam**
 
 Computer Science Engineering Student
 
-Building a production-grade stock trading platform using the MERN Stack.
+MERN Stack Developer
+
+India 🇮🇳
+
+---
+
+⭐ If you like this project, consider giving it a star.
