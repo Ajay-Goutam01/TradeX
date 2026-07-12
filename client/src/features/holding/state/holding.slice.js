@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getHoldings } from "../services/holding.api";
+import { getPortfolio } from "../../portfolio/services/portfolio.api";
 
 export const fetchHoldings = createAsyncThunk(
   "holding/fetch",
   async (_, { rejectWithValue }) => {
     try {
-      return await getHoldings();
+      const portfolio = await getPortfolio();
+      return portfolio.holdings || [];
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }

@@ -11,47 +11,47 @@ function BuySellCard({ stock }) {
 
   return (
     <>
-      <div className="sticky top-24 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="sticky top-[96px] rounded-3xl border border-slate-800 bg-slate-900/40 p-6 shadow-xl backdrop-blur-md">
         <div className="mb-6">
-          <h2 className="text-xl font-bold">Trade</h2>
+          <h2 className="text-xl font-extrabold text-white tracking-tight">Trade</h2>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-slate-400 font-medium">
             Place your paper trading order
           </p>
         </div>
 
-        <div className="mb-6 rounded-2xl bg-slate-50 p-5">
-          <div className="flex justify-between">
-            <span className="text-slate-500">Current Price</span>
+        <div className="mb-6 rounded-2xl bg-slate-950/40 border border-slate-800/80 p-5">
+          <div className="flex justify-between items-center">
+            <span className="text-sm font-semibold text-slate-450">Current Price</span>
 
-            <span className="font-bold">
-              ₹{Number(stock.price).toLocaleString()}
+            <span className="font-extrabold text-white">
+              ₹{Number(stock.price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
           </div>
 
-          <div className="mt-3 flex justify-between">
-            <span className="text-slate-500">Symbol</span>
+          <div className="mt-3.5 flex justify-between items-center">
+            <span className="text-sm font-semibold text-slate-450">Symbol</span>
 
-            <span className="font-semibold">{stock.symbol}</span>
+            <span className="font-bold text-slate-200">{stock.symbol?.replace(".NS", "")}</span>
           </div>
 
-          <div className="mt-3 flex justify-between">
-            <span className="text-slate-500">Exchange</span>
+          <div className="mt-3.5 flex justify-between items-center">
+            <span className="text-sm font-semibold text-slate-450">Exchange</span>
 
-            <span className="font-semibold">{stock.exchange}</span>
+            <span className="font-bold text-slate-200">{stock.exchange}</span>
           </div>
         </div>
 
         <button
           onClick={() => setBuyOpen(true)}
-          className="mb-4 w-full rounded-xl bg-green-600 py-4 font-semibold text-white transition hover:bg-green-700"
+          className="mb-4 w-full rounded-xl bg-emerald-600 py-4.5 font-extrabold text-sm tracking-wider text-white shadow-lg shadow-emerald-500/10 transition-all duration-205 hover:bg-emerald-500 hover:shadow-emerald-500/25 hover:-translate-y-0.5 cursor-pointer"
         >
           BUY
         </button>
 
         <button
           onClick={() => setSellOpen(true)}
-          className="w-full rounded-xl bg-red-600 py-4 font-semibold text-white transition hover:bg-red-700"
+          className="w-full rounded-xl bg-rose-600 py-4.5 font-extrabold text-sm tracking-wider text-white shadow-lg shadow-rose-500/10 transition-all duration-205 hover:bg-rose-500 hover:shadow-rose-500/25 hover:-translate-y-0.5 cursor-pointer"
         >
           SELL
         </button>

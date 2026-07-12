@@ -25,9 +25,9 @@ const features = [
 
 function Features() {
   return (
-    <section className="mx-auto max-w-7xl px-6">
-      <h2 className="mb-10 text-center text-4xl font-bold">
-        Why Choose StockTrade?
+    <section className="mx-auto max-w-7xl px-6 py-12">
+      <h2 className="mb-12 text-center text-4xl font-extrabold text-white tracking-tight">
+        Why Choose TradeX?
       </h2>
 
       <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
@@ -37,15 +37,15 @@ function Features() {
           return (
             <div
               key={feature.title}
-              className="rounded-3xl border bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              className="rounded-3xl border border-slate-850 bg-slate-900/30 p-8 shadow-xl backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-slate-700/80 hover:bg-slate-800/30 hover:shadow-2xl"
             >
-              <div className="mb-5 inline-flex rounded-2xl bg-blue-600 p-4">
-                <Icon size={28} className="text-white" />
+              <div className="mb-6 inline-flex rounded-2xl bg-blue-500/15 p-4 border border-blue-500/20 text-blue-400">
+                <Icon size={26} />
               </div>
 
-              <h3 className="text-xl font-bold">{feature.title}</h3>
+              <h3 className="text-xl font-bold text-white tracking-wide">{feature.title}</h3>
 
-              <p className="mt-4 text-slate-500">{feature.description}</p>
+              <p className="mt-3.5 text-sm leading-relaxed text-slate-400">{feature.description}</p>
             </div>
           );
         })}

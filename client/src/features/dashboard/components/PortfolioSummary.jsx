@@ -1,19 +1,20 @@
+import { useEffect } from "react";
 import { Wallet, Landmark, TrendingUp, Briefcase } from "lucide-react";
 
 import usePortfolio from "../../portfolio/hooks/usePortfolio";
 
-function Card({ title, value, icon: Icon, color }) {
+function Card({ title, value, icon: Icon, colorClass, borderClass, textClass }) {
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+    <div className="rounded-3xl border border-slate-800/80 bg-slate-900/40 p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-slate-700/80 hover:bg-slate-800/40 hover:shadow-2xl">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-slate-500">{title}</p>
+          <p className="text-sm font-semibold text-slate-450 tracking-wide">{title}</p>
 
-          <h2 className="mt-4 text-3xl font-bold">{value}</h2>
+          <h2 className="mt-4 text-3xl font-extrabold text-white tracking-tight">{value}</h2>
         </div>
 
-        <div className={`${color} rounded-2xl p-4 text-white`}>
-          <Icon size={28} />
+        <div className={`rounded-2xl p-4 border ${colorClass} ${borderClass} ${textClass}`}>
+          <Icon size={24} />
         </div>
       </div>
     </div>
@@ -21,7 +22,11 @@ function Card({ title, value, icon: Icon, color }) {
 }
 
 function PortfolioSummary() {
-  const { portfolio, loading } = usePortfolio();
+  const { portfolio, loading, getPortfolio } = usePortfolio();
+
+  useEffect(() => {
+    getPortfolio();
+  }, []);
 
   if (loading) {
     return (
@@ -29,7 +34,7 @@ function PortfolioSummary() {
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className="h-36 animate-pulse rounded-3xl bg-slate-200"
+            className="h-32 animate-pulse rounded-3xl bg-slate-900/60 border border-slate-800"
           />
         ))}
       </div>
@@ -40,35 +45,43 @@ function PortfolioSummary() {
 
   return (
     <section>
-      <h2 className="mb-6 text-2xl font-bold">Portfolio Summary</h2>
+      <h2 className="mb-6 text-2xl font-bold text-white tracking-tight">Portfolio Summary</h2>
 
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         <Card
           title="Portfolio Value"
-          value={`₹${portfolio.totalPortfolioValue.toLocaleString()}`}
+          value={`₹${portfolio.totalPortfolioValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
           icon={Briefcase}
-          color="bg-blue-600"
+          colorClass="bg-blue-500/10"
+          borderClass="border-blue-500/20"
+          textClass="text-blue-450"
         />
 
         <Card
-          title="Available Balance"
-          value={`₹${portfolio.availableBalance.toLocaleString()}`}
+          title="Available Cash"
+          value={`₹${portfolio.availableCash.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
           icon={Wallet}
-          color="bg-green-600"
+          colorClass="bg-emerald-500/10"
+          borderClass="border-emerald-500/20"
+          textClass="text-emerald-400"
         />
 
         <Card
           title="Today's Profit"
-          value={`₹${portfolio.todayProfit.toLocaleString()}`}
+          value={`₹${portfolio.dayProfit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
           icon={TrendingUp}
-          color={portfolio.todayProfit >= 0 ? "bg-emerald-600" : "bg-red-600"}
+          colorClass={portfolio.dayProfit >= 0 ? "bg-emerald-500/10" : "bg-rose-500/10"}
+          borderClass={portfolio.dayProfit >= 0 ? "border-emerald-500/20" : "border-rose-500/20"}
+          textClass={portfolio.dayProfit >= 0 ? "text-emerald-400" : "text-rose-400"}
         />
 
         <Card
           title="Total Investment"
-          value={`₹${portfolio.totalInvestment.toLocaleString()}`}
+          value={`₹${portfolio.investedAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
           icon={Landmark}
-          color="bg-violet-600"
+          colorClass="bg-violet-500/10"
+          borderClass="border-violet-500/20"
+          textClass="text-violet-400"
         />
       </div>
     </section>

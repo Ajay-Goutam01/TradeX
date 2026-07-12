@@ -21,7 +21,7 @@ const menus = [
   {
     label: "Markets",
     icon: ChartCandlestick,
-    to: "/dashboard/market",
+    to: "/dashboard/markets",
   },
   {
     label: "Portfolio",
@@ -62,8 +62,8 @@ const menus = [
 
 function Sidebar() {
   return (
-    <aside className="sticky top-20 h-[calc(100vh-80px)] w-64 border-r border-slate-200 bg-white p-5">
-      <div className="space-y-2">
+    <aside className="sticky top-[76px] h-[calc(100vh-76px)] w-64 border-r border-slate-900 bg-slate-950 p-5">
+      <div className="space-y-1.5">
         {menus.map((item) => (
           <SidebarItem key={item.to} {...item} />
         ))}

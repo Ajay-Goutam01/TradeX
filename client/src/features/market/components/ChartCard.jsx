@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useMarket from "../hooks/useMarket";
 
 import LightweightChart from "./LightweightChart";
-import TimeFrameSelector from "./TimeFrameSelector";
+import TimeFrameSelector from "./TImeFrameSelector";
 
 function ChartCard({ stock }) {
   const { chart, getChart } = useMarket();
@@ -18,9 +18,9 @@ function ChartCard({ stock }) {
   console.log("Redux Chart =>", chart);
 
   return (
-    <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Price Chart</h2>
+    <div className="rounded-3xl border border-slate-800 bg-slate-900/40 p-6 shadow-xl backdrop-blur-md">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <h2 className="text-2xl font-bold text-white tracking-tight">Price Chart</h2>
 
         <TimeFrameSelector selected={range} onChange={setRange} />
       </div>

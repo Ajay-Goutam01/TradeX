@@ -6,12 +6,12 @@ function SidebarItem({ icon: Icon, label, to }) {
       to={to}
       end={to === "/dashboard"}
       className={({ isActive }) =>
-        `flex items-center gap-4 rounded-xl px-4 py-3 transition
+        `flex items-center gap-4 rounded-xl px-4 py-3 font-semibold text-sm transition-all duration-200
 
         ${
           isActive
-            ? "bg-blue-600 text-white shadow-lg"
-            : "text-slate-600 hover:bg-slate-100"
+            ? "bg-blue-600 text-white shadow-lg shadow-blue-500/15"
+            : "text-slate-400 hover:bg-slate-900 hover:text-white"
         }`
       }
     >

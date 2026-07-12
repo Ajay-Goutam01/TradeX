@@ -7,9 +7,9 @@ function SearchDropDown({ loading, results, onSelect }) {
   }
 
   return (
-    <div className="absolute top-full mt-2 max-h-96 w-full overflow-y-auto rounded-2xl border border-slate-200 bg-white shadow-xl">
+    <div className="absolute top-full mt-2 max-h-96 w-full overflow-y-auto rounded-2xl border border-slate-800 bg-slate-900/95 shadow-2xl backdrop-blur-md z-55 divide-y divide-slate-800/40">
       {results.length === 0 ? (
-        <div className="p-6 text-center text-slate-500">No stocks found.</div>
+        <div className="p-6 text-center text-sm text-slate-400">No stocks found.</div>
       ) : (
         results.map((stock) => (
           <SearchItem key={stock.symbol} stock={stock} onClick={onSelect} />

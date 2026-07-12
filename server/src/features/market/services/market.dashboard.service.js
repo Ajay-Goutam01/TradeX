@@ -79,27 +79,38 @@ class MarketDashboardService {
     );
   }
 
-  async getHome() {
-    const cached = marketCache.get("dashboard");
+ async getHome() {
+  const cached = marketCache.get("dashboard");
 
-    if (cached) {
-      return cached;
-    }
-
-    // Existing Logic Here
-
-    const result = {
-      indices,
-      marketStatus,
-      topGainers,
-      topLosers,
-      mostActive,
-    };
-
-    marketCache.set("dashboard", result, 30000);
-
-    return result;
+  if (cached) {
+    return cached;
   }
+
+  const [indices, quotes] = await Promise.all([
+    this.getIndices(),
+    this.getDashboardQuotes(),
+  ]);
+
+  const marketStatus = this.getMarketStatus();
+
+  const topGainers = this.getTopGainers(quotes);
+
+  const topLosers = this.getTopLosers(quotes);
+
+  const mostActive = this.getMostActive(quotes);
+
+  const result = {
+    indices,
+    marketStatus,
+    topGainers,
+    topLosers,
+    mostActive,
+  };
+
+  marketCache.set("dashboard", result, 30000);
+
+  return result;
+}
 }
 
 const marketDashboardService = new MarketDashboardService();

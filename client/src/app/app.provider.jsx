@@ -11,9 +11,9 @@ function AppProvider() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        {/* <AuthInitializer> */}
+        <AuthInitializer>
           <App />
-        {/* </AuthInitializer> */}
+        </AuthInitializer>
 
         <Toaster
           position="top-right"
