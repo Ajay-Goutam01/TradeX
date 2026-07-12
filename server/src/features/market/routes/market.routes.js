@@ -14,7 +14,8 @@ import {
   getQuote,
   getHistory,
   getIndices,
-  getHome
+  getHome,
+  getMarketDetails
 } from "../controllers/market.controller.js";
 
 const router = Router();
@@ -43,5 +44,10 @@ router.get(
 router.get(
   "/home",
   getHome
+);
+router.get(
+  "/details/:symbol",
+  validate(quoteSchema, "params"),
+  getMarketDetails,
 );
 export default router;

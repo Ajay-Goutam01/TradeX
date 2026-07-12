@@ -21,7 +21,7 @@ function Hero() {
           portfolios, and improve trading skills without financial risk.
         </p>
 
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-5">
+        <div className="mt-12 flex flex-wrap items-center justify-center space-between gap-5">
           <Link
             to="/register"
             className="flex items-center gap-2 rounded-2xl bg-blue-600 px-8 py-4 text-lg font-semibold text-white transition hover:bg-blue-700"

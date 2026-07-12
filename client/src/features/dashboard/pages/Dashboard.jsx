@@ -7,7 +7,7 @@ import MarketSnapshot from "../components/MarketSnapshot";
 import PortfolioSummary from "../components/PortfolioSummary";
 import QuickActions from "../components/QuickActions";
 import RecentOrders from "../components/RecentOrders";
-
+import WalletCard from "../../walllet/components/WalletCard";
 function Dashboard() {
   const { getHome } = useMarket();
 
@@ -20,6 +20,8 @@ function Dashboard() {
       <DashboardHeader />
 
       <PortfolioSummary />
+
+      <WalletCard />
 
       <QuickActions />
 

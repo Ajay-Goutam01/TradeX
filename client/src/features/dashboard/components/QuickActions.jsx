@@ -28,21 +28,21 @@ function QuickActions() {
           title="Search Stocks"
           icon={Search}
           color="bg-blue-600"
-          onClick={() => navigate("/market")}
+          onClick={() => navigate("/dashboard/market")}
         />
 
         <Action
           title="Buy Stocks"
           icon={ArrowUpCircle}
           color="bg-green-600"
-          onClick={() => navigate("/market")}
+          onClick={() =>navigate("/dashboard/market")}
         />
 
         <Action
           title="Sell Stocks"
           icon={ArrowDownCircle}
           color="bg-red-600"
-          onClick={() => navigate("/market")}
+          onClick={() => navigate("/dashboard/market")}
         />
       </div>
     </section>

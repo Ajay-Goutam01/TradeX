@@ -1,5 +1,6 @@
 import Stock from "../../../models/stock.model.js";
 import { ApiError } from "../../../core/index.js";
+import stockService from "../../stock/services/stock.service.js";
 
 class StockService {
   async createStock(payload) {
@@ -44,7 +45,25 @@ class StockService {
     const stock = await Stock.findOne({
       symbol: symbol.toUpperCase(),
       isActive: true,
-    }).lean();
+    })
+      .select(
+        `
+      symbol
+      companyName
+      displayName
+      exchange
+      yahooSymbol
+      instrumentType
+      sector
+      industry
+      logo
+      isin
+      faceValue
+      lotSize
+      tickSize
+    `,
+      )
+      .lean();
 
     if (!stock) {
       throw new ApiError(404, "Stock not found.");
@@ -52,6 +71,7 @@ class StockService {
 
     return stock;
   }
+  
 
   async searchStocks(query) {
     return await Stock.find({

@@ -1,6 +1,7 @@
 import { yahooProvider } from "../../../providers/index.js";
 import { ApiError } from "../../../core/index.js";
 import { DASHBOARD_SYMBOLS } from "../../../shared/constants/market.constants.js";
+import stockService from "../../stock/services/stock.service.js";
 
 class MarketService {
   getPeriod(range) {
@@ -53,6 +54,7 @@ class MarketService {
       period2,
     };
   }
+
   mapQuote(stock) {
     return {
       symbol: stock.symbol,
@@ -98,6 +100,7 @@ class MarketService {
       volume: candle.volume,
     }));
   }
+
   mapIndices(indices) {
     const result = {};
 
@@ -132,6 +135,7 @@ class MarketService {
 
     return result;
   }
+
   mapMarketStatus(state) {
     switch (state) {
       case "REGULAR":
@@ -149,6 +153,7 @@ class MarketService {
         return "Unknown";
     }
   }
+
   async searchStocks(query) {
     if (!query?.trim()) {
       throw new ApiError(400, "Search query is required.");
@@ -168,6 +173,7 @@ class MarketService {
 
     return this.mapQuote(stock);
   }
+
   async getHistory(symbol, interval, range) {
     const { period1, period2 } = this.getPeriod(range);
 
@@ -184,6 +190,18 @@ class MarketService {
       candles: this.mapHistory(history),
     };
   }
+
+  async getMarketDetails(symbol) {
+    const stock = await stockService.getStockBySymbol(symbol);
+
+    const quote = await this.getQuote(stock.yahooSymbol);
+
+    return {
+      ...stock,
+      ...quote,
+    };
+  }
+
   async getIndices() {
     const symbols = ["^NSEI", "^NSEBANK", "^BSESN", "NIFTY_FIN_SERVICE.NS"];
 
@@ -191,15 +209,11 @@ class MarketService {
 
     return this.mapIndices(indices);
   }
-  async getDashboardQuotes(symbols = DASHBOARD_SYMBOLS) {
-    try {
-      const quotes = await yahooProvider.getQuotes(symbols);
 
-      return quotes;
-    } catch (error) {
-      throw error;
-    }
+  async getDashboardQuotes(symbols = DASHBOARD_SYMBOLS) {
+    return await yahooProvider.getQuotes(symbols);
   }
+
   async getLiveQuote(stock) {
     return await this.getQuote(stock.yahooSymbol);
   }

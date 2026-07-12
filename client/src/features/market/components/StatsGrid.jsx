@@ -1,48 +1,28 @@
-const stats = (stock) => [
-  {
-    label: "Open",
-    value: stock?.open,
-  },
+function Card({ title, value }) {
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <p className="text-sm text-slate-500">{title}</p>
 
-  {
-    label: "High",
-    value: stock?.high,
-  },
-
-  {
-    label: "Low",
-    value: stock?.low,
-  },
-
-  {
-    label: "Previous Close",
-    value: stock?.previousClose,
-  },
-
-  {
-    label: "Volume",
-    value: stock?.volume,
-  },
-
-  {
-    label: "Market Cap",
-    value: stock?.marketCap,
-  },
-];
+      <h2 className="mt-3 text-xl font-bold">{value}</h2>
+    </div>
+  );
+}
 
 function StatsGrid({ stock }) {
-  if (!stock) return null;
-
   return (
-    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-      {stats(stock).map((item) => (
-        <div key={item.label} className="rounded-2xl bg-white p-6 shadow-sm">
-          <p className="text-sm text-slate-500">{item.label}</p>
+    <section>
+      <h2 className="mb-5 text-2xl font-bold">Statistics</h2>
 
-          <h3 className="mt-2 text-2xl font-bold">{item.value}</h3>
-        </div>
-      ))}
-    </div>
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <Card title="Market Cap" value={stock.marketCap?.toLocaleString()} />
+
+        <Card title="Volume" value={stock.volume?.toLocaleString()} />
+
+        <Card title="Currency" value={stock.currency} />
+
+        <Card title="Symbol" value={stock.symbol} />
+      </div>
+    </section>
   );
 }
 

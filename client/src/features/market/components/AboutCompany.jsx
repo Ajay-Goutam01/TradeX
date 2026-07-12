@@ -1,82 +1,41 @@
 function AboutCompany({ stock }) {
-
-  if (!stock) return null;
-
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white shadow-sm">
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 className="mb-6 text-2xl font-bold">Company Information</h2>
 
-      <div className="border-b p-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <p className="text-sm text-slate-500">Company Name</p>
 
-        <h2 className="text-2xl font-bold">
-          Company Information
-        </h2>
+          <h3 className="mt-2 text-lg font-semibold">
+            {stock.companyName || stock.name}
+          </h3>
+        </div>
 
+        <div>
+          <p className="text-sm text-slate-500">Sector</p>
+
+          <h3 className="mt-2 text-lg font-semibold">
+            {stock.sector || "N/A"}
+          </h3>
+        </div>
+
+        <div>
+          <p className="text-sm text-slate-500">Industry</p>
+
+          <h3 className="mt-2 text-lg font-semibold">
+            {stock.industry || "N/A"}
+          </h3>
+        </div>
+
+        <div>
+          <p className="text-sm text-slate-500">Instrument</p>
+
+          <h3 className="mt-2 text-lg font-semibold">
+            {stock.instrumentType || "Equity"}
+          </h3>
+        </div>
       </div>
-
-      <div className="grid gap-6 p-6 md:grid-cols-2">
-
-        <div>
-
-          <p className="text-sm text-slate-500">
-            Company
-          </p>
-
-          <h3 className="mt-2 font-semibold">
-            {stock.name}
-          </h3>
-
-        </div>
-
-        <div>
-
-          <p className="text-sm text-slate-500">
-            Symbol
-          </p>
-
-          <h3 className="mt-2 font-semibold">
-            {stock.symbol}
-          </h3>
-
-        </div>
-
-        <div>
-
-          <p className="text-sm text-slate-500">
-            Exchange
-          </p>
-
-          <h3 className="mt-2 font-semibold">
-            {stock.exchange}
-          </h3>
-
-        </div>
-
-        <div>
-
-          <p className="text-sm text-slate-500">
-            Currency
-          </p>
-
-          <h3 className="mt-2 font-semibold">
-            {stock.currency}
-          </h3>
-
-        </div>
-
-        <div>
-
-          <p className="text-sm text-slate-500">
-            Market State
-          </p>
-
-          <h3 className="mt-2 font-semibold">
-            {stock.marketState}
-          </h3>
-
-        </div>
-
-      </div>
-
     </section>
   );
 }

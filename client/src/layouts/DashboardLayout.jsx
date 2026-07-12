@@ -5,13 +5,13 @@ import Sidebar from "../components/sidebar/Sidebar";
 
 function DashboardLayout() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="h-screen overflow-hidden bg-slate-950 text-slate-100">
       <Navbar />
 
-      <div className="mx-auto flex max-w-[1600px]">
+      <div className="flex h-[calc(100vh-72px)]">
         <Sidebar />
 
-        <main className="flex-1 p-8">
+        <main className="flex-1 overflow-y-auto bg-slate-950 p-6">
           <Outlet />
         </main>
       </div>

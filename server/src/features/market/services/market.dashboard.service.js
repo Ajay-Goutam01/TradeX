@@ -1,4 +1,5 @@
 import marketService from "./market.service.js";
+import marketCache from "./market.cache.js";
 
 class MarketDashboardService {
   sortStocks(quotes, field, order = "desc") {
@@ -79,29 +80,25 @@ class MarketDashboardService {
   }
 
   async getHome() {
-    const [indices, quotes] = await Promise.all([
-      this.getIndices(),
-      this.getDashboardQuotes(),
-    ]);
+    const cached = marketCache.get("dashboard");
 
-   
+    if (cached) {
+      return cached;
+    }
 
-    const gainers = this.getTopGainers(quotes);
+    // Existing Logic Here
 
-
-    const losers = this.getTopLosers(quotes);
-  
-
-    const active = this.getMostActive(quotes);
-   
-
-    return {
-      marketStatus: this.getMarketStatus(),
+    const result = {
       indices,
-      topGainers: gainers,
-      topLosers: losers,
-      mostActive: active,
+      marketStatus,
+      topGainers,
+      topLosers,
+      mostActive,
     };
+
+    marketCache.set("dashboard", result, 30000);
+
+    return result;
   }
 }
 

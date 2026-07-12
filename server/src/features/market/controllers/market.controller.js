@@ -80,6 +80,20 @@ const getHome = asyncHandler(async (req, res) => {
 
 });
 
+const getMarketDetails = asyncHandler(async (req, res) => {
+  const details = await marketService.getMarketDetails(
+    req.validated.params.symbol,
+  );
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      "Market details fetched successfully.",
+      details,
+    ),
+  );
+});
+
 
 
 export {
@@ -87,5 +101,6 @@ export {
   getQuote,
   getHistory,
   getIndices,
-  getHome
+  getHome,
+  getMarketDetails
 };

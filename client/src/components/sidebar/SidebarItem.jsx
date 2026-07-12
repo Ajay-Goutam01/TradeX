@@ -1,20 +1,25 @@
 import { NavLink } from "react-router-dom";
 
-function SidebarItem({ to, icon: Icon, label }) {
+function SidebarItem({ icon: Icon, label, to }) {
   return (
     <NavLink
       to={to}
+      end={to === "/dashboard"}
       className={({ isActive }) =>
-        `flex items-center gap-3 rounded-xl px-4 py-3 transition ${
+        `flex items-center gap-4 rounded-xl px-4 py-3 transition
+
+        ${
           isActive
-            ? "bg-blue-600 text-white"
+            ? "bg-blue-600 text-white shadow-lg"
             : "text-slate-600 hover:bg-slate-100"
         }`
       }
     >
       <Icon size={20} />
 
-      <span>{label}</span>
+      <div className="flex flex-1 items-center justify-between">
+        <span>{label}</span>
+      </div>
     </NavLink>
   );
 }

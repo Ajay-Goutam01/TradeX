@@ -46,7 +46,7 @@ function SearchBar() {
     <div ref={searchRef} className="relative hidden w-full max-w-lg lg:block">
       <Search
         size={18}
-        className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+        className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"
       />
 
       <input
@@ -56,8 +56,8 @@ function SearchBar() {
           setQuery(e.target.value);
           setOpen(true);
         }}
-        placeholder="Search stocks..."
-        className="w-full rounded-2xl border border-slate-200 bg-slate-100 py-3 pl-12 pr-4 outline-none transition focus:border-blue-600 focus:bg-white"
+        placeholder="Search Stocks (RELIANCE, TCS, INFY...)"
+        className="w-full rounded-xl border border-slate-700 bg-slate-900 py-3 pl-12 pr-4 text-sm text-white outline-none transition focus:border-blue-500"
       />
 
       {open && (

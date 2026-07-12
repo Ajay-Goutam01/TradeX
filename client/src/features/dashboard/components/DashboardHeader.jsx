@@ -23,15 +23,41 @@ function DashboardHeader() {
         <p className="mt-3 text-blue-100">Welcome back to StockTrade</p>
       </div>
 
-      <div className="flex gap-6">
-        <div>
-          <p className="text-blue-100">Market Status</p>
+      <div className="flex gap-10">
 
-          <h2 className="mt-2 text-2xl font-bold">
-            {marketStatus?.session || "Loading..."}
-          </h2>
-        </div>
-      </div>
+<div>
+
+<p className="text-blue-100">
+
+Market Status
+
+</p>
+
+<h2 className="mt-2 text-3xl font-bold">
+
+{marketStatus?.session ?? "Loading..."}
+
+</h2>
+
+</div>
+
+<div>
+
+<p className="text-blue-100">
+
+Date
+
+</p>
+
+<h2 className="mt-2 text-xl font-semibold">
+
+{new Date().toLocaleDateString()}
+
+</h2>
+
+</div>
+
+</div>
     </section>
   );
 }

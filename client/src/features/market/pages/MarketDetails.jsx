@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { LoaderCircle } from "lucide-react";
 
 import useMarket from "../hooks/useMarket";
 
@@ -8,45 +9,64 @@ import PriceCard from "../components/PriceCard";
 import ChartCard from "../components/ChartCard";
 import StatsGrid from "../components/StatsGrid";
 import AboutCompany from "../components/AboutCompany";
+import BuySellCard from "../components/BuySellCard";
 
 function MarketDetails() {
   const { symbol } = useParams();
 
-  const {
-    getQuote,
-
-    getHistory,
-
-    selectedStock,
-
-    loading,
-  } = useMarket();
+  const { stock, loading, getStock } = useMarket();
 
   useEffect(() => {
-    getQuote(symbol);
-
-    getHistory(symbol, "1d", "1mo");
+    if (symbol) {
+      getStock(symbol);
+    }
   }, [symbol]);
 
   if (loading) {
     return (
-      <div className="rounded-3xl bg-white p-10 text-center">
-        Loading Stock...
+      <div className="flex h-[75vh] flex-col items-center justify-center gap-4">
+        <LoaderCircle className="animate-spin text-blue-600" size={45} />
+
+        <p className="text-lg font-medium text-slate-500">
+          Loading Market Details...
+        </p>
+      </div>
+    );
+  }
+
+  if (!stock) {
+    return (
+      <div className="flex h-[75vh] flex-col items-center justify-center">
+        <h2 className="text-3xl font-bold">Stock Not Found</h2>
+
+        <p className="mt-3 text-slate-500">Please search another stock.</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-8">
-      <StockHeader stock={selectedStock} />
+      <StockHeader stock={stock} />
 
-      <PriceCard stock={selectedStock} />
+      <div className="grid gap-8 xl:grid-cols-12">
+        {/* Left Section */}
 
-      <ChartCard />
+        <div className="space-y-8 xl:col-span-8">
+          <PriceCard stock={stock} />
 
-      <StatsGrid stock={selectedStock} />
+          <ChartCard stock={stock} />
 
-      <AboutCompany stock={selectedStock} />
+          <StatsGrid stock={stock} />
+
+          <AboutCompany stock={stock} />
+        </div>
+
+        {/* Right Section */}
+
+        <div className="xl:col-span-4">
+          <BuySellCard stock={stock} />
+        </div>
+      </div>
     </div>
   );
 }
